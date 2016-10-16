@@ -10,9 +10,11 @@ DISTRO=`lsb_release -is | tr [:upper:] [:lower:]`
 NCORES=` cat /proc/cpuinfo | grep cores | wc -l`
 WORKER=`bc -l <<< "4*$NCORES"`
 
-PHPVersion=${1-7}
-AppToInstall=${2:-"none"}
+AppToInstall=${1:-"none"}
 # wordpres, joomla, drupal
+PHPVersion=${2-7}
+
+
 InstallTools=${3:-"no"}
 ToolsUser=$4
 ToolsPass=$5
