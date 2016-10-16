@@ -166,4 +166,6 @@ sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 100M/g" /etc/php5/fpm/p
 service php5-fpm restart
 fi
 
+chown -R nginx.nginx /usr/share/nginx/html/web
+
 service nginx restart
