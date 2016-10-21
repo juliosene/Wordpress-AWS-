@@ -159,10 +159,10 @@ fi
 # Services restart
 #
 if [ "$PHPVersion" -eq 7 ]; then
-sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 100M/g" /etc/php/7.0/fpm/php.ini
+sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 100M/g;s/post_max_size = 8M/post_max_size = 64M/g;s/max_execution_time = 30/max_execution_time = 300/g" /etc/php/7.0/fpm/php.ini
 service php7.0-fpm restart
 else
-sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini
+sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 100M/g;s/post_max_size = 8M/post_max_size = 64M/g;s/max_execution_time = 30/max_execution_time = 300/g" /etc/php5/fpm/php.ini
 service php5-fpm restart
 fi
 
