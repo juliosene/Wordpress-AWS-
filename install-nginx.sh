@@ -40,14 +40,14 @@ apt-get install -fy php7.0-gd
 # apt-get install -fy php-apc php7.0-gd
 apt-get --purge autoremove -y
 # replace www-data to nginx into /etc/php/7.0/fpm/pool.d/www.conf
-sed -i 's/www-data/nginx/g' /etc/php/7.0/fpm/pool.d/www.conf
+sed -i 's/www-data/nginx/g;s/\;request_terminate_timeout = 0/request_terminate_timeout = 300/g;' /etc/php/7.0/fpm/pool.d/www.conf
 service php7.0-fpm restart
 # # PHP 5
 else
 apt-get install -fy php5-fpm php5-cli php5-mysql
 apt-get install -fy php-apc php5-gd
 # replace www-data to nginx into /etc/php5/fpm/pool.d/www.conf
-sed -i 's/www-data/nginx/g' /etc/php5/fpm/pool.d/www.conf
+sed -i 's/www-data/nginx/g;s/\;request_terminate_timeout = 0/request_terminate_timeout = 300/g;' /etc/php5/fpm/pool.d/www.conf
 service php5-fpm restart
 fi
 
