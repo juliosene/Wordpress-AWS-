@@ -36,7 +36,7 @@ apt-get install -fy nginx
 # # PHP 7
 if [ "$PHPVersion" -eq 7 ]; then
 apt-get install php7.0 php7.0-fpm php7.0-mysql -y
-apt-get install -fy php7.0-gd php7.0-curl php7.0-mbstring
+apt-get install -fy php7.0-gd php7.0-curl php7.0-mbstring php7.0-xml
 # apt-get install -fy php-apc php7.0-gd
 apt-get --purge autoremove -y
 # replace www-data to nginx into /etc/php/7.0/fpm/pool.d/www.conf
