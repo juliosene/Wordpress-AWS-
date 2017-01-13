@@ -4,7 +4,7 @@ cd ~
 # apt-get update
 # apt-get -fy dist-upgrade
 # apt-get -fy upgrade
-apt-get install lsb-release bc
+apt-get install -fy lsb-release bc
 REL=`lsb_release -sc`
 DISTRO=`lsb_release -is | tr [:upper:] [:lower:]`
 NCORES=` cat /proc/cpuinfo | grep cores | wc -l`
@@ -41,7 +41,7 @@ apt-get -y install nfs-common
 apt-get install -fy nginx
 # # PHP 7
 if [ "$PHPVersion" -eq 7 ]; then
-apt-get install php7.0 php7.0-fpm php7.0-mysql -y
+apt-get install php7.0 php7.0-fpm php7.0-mysql -fy
 apt-get install -fy php7.0-gd php7.0-curl php7.0-mbstring php7.0-xml
 # apt-get install -fy php-apc php7.0-gd
 apt-get --purge autoremove -y
