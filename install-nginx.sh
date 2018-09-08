@@ -1,9 +1,10 @@
 #!/bin/bash
-# Install Nginx
+# This script will install Nginx + PHP 7.1
 cd ~
-# apt-get update
+sudo -i
+apt-get update
 # apt-get -fy dist-upgrade
-# apt-get -fy upgrade
+apt-get -fy upgrade
 apt-get install -fy lsb-release bc
 REL=`lsb_release -sc`
 DISTRO=`lsb_release -is | tr [:upper:] [:lower:]`
@@ -19,14 +20,15 @@ InstallTools=${3:-"no"}
 ToolsUser=$4
 ToolsPass=$5
 
+# Install NGinx from oficial repository
+
 wget http://nginx.org/keys/nginx_signing.key
 apt-key add nginx_signing.key
 add-apt-repository "deb http://nginx.org/packages/$DISTRO $REL nginx"
 # add-apt-repository "deb-src http://nginx.org/packages/$DISTRO $REL nginx"
-if [ "$PHPVersion" -eq 7 ]; then
+
 apt-get install -fy python-software-properties
 LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y
-fi
 
 apt-get -y update
 
@@ -38,24 +40,20 @@ apt-get -y install nfs-common
 
 # apt-get install -y -f cifs-utils
 
+# Remove Apache2 before install NginX
+apt-get remove -fy apache2
+
+#Install NginX
 apt-get install -fy nginx
-# # PHP 7
-if [ "$PHPVersion" -eq 7 ]; then
-apt-get install php7.0 php7.0-fpm php7.0-mysql -fy
-apt-get install -fy php7.0-gd php7.0-curl php7.0-mbstring php7.0-xml
-# apt-get install -fy php-apc php7.0-gd
+
+# # PHP 7.2
+apt-get install -fy php7.2
+apt-get install -fy php-pear php7.2-fpm php7.2-mysql php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml
+
 apt-get --purge autoremove -y
 # replace www-data to nginx into /etc/php/7.0/fpm/pool.d/www.conf
-sed -i 's/www-data/nginx/g;s/\;request_terminate_timeout = 0/request_terminate_timeout = 300/g;' /etc/php/7.0/fpm/pool.d/www.conf
-service php7.0-fpm restart
-# # PHP 5
-else
-apt-get install -fy php5-fpm php5-cli php5-mysql
-apt-get install -fy php-apc php5-gd php5-mbstring
-# replace www-data to nginx into /etc/php5/fpm/pool.d/www.conf
-sed -i 's/www-data/nginx/g;s/\;request_terminate_timeout = 0/request_terminate_timeout = 300/g;' /etc/php5/fpm/pool.d/www.conf
-service php5-fpm restart
-fi
+sed -i 's/www-data/nginx/g;s/\;request_terminate_timeout = 0/request_terminate_timeout = 300/g;' /etc/php/7.2/fpm/pool.d/www.conf
+service php7.2-fpm restart
 
 # backup default Nginx configuration
 mkdir /etc/nginx/conf-bkp
@@ -73,32 +71,18 @@ mv nginx.conf /etc/nginx/
 #
 wget https://raw.githubusercontent.com/juliosene/azure-nginx-php-mariadb-cluster/master/files/default.conf
 
-# replace for php7 sock
-if [ "$PHPVersion" -eq 7 ]; then
-sed -i "s,/var/run/php5-fpm.sock,/var/run/php/php7.0-fpm.sock,g" default.conf
-fi
+
+sed -i "s,/var/run/php5-fpm.sock,/var/run/php/php7.2-fpm.sock,g" default.conf
+
 
 #sed -i "s/#WORKER#/$WORKER/g" nginx.conf
 mv default.conf /etc/nginx/conf.d/
 
 # Memcache client installation
-# ## php 7
-if [ "$PHPVersion" -eq 7 ]; then
-apt-get install -fy php-memcached
+apt-get install -fy php7.2-memcached
 # wget https://raw.githubusercontent.com/juliosene/azure-nginx-php-mariadb-cluster/master/files/memcache.ini
 # mv memcache.ini /etc/php/mods-available/
 # ln -s /etc/php/mods-available/memcache.ini  /etc/php/7.0/fpm/conf.d/20-memcache.ini
-# ## php 5
-else
-apt-get install -fy php-pear
-apt-get install -fy php5-dev
-printf "\n" |pecl install -f memcache
-wget https://raw.githubusercontent.com/juliosene/azure-nginx-php-mariadb-cluster/master/files/memcache.ini
-#sed -i "s/#WORKER#/$WORKER/g" memcache.ini
-mv memcache.ini /etc/php5/mods-available/
-ln -s /etc/php5/mods-available/memcache.ini  /etc/php5/fpm/conf.d/20-memcache.ini
-fi
-
 
 
 if [ $AppToInstall == "wordpress" ];
