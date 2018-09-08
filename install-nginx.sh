@@ -78,39 +78,6 @@ wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/files/def
 mv default.conf /etc/nginx/conf.d/
 
 
-
-
-
-if [ $AppToInstall == "wordpress" ];
-then
-# Install wordpress
-cd /usr/share/nginx/html/
-wget https://wordpress.org/latest.tar.gz
-tar -xzvf latest.tar.gz
-mv wordpress web
-rm -rf latest.tar.gz
-
-elif [ $AppToInstall == "joomla" ];
-then
-# Install joomla
-cd /usr/share/nginx/html/
-wget https://github.com/joomla/joomla-cms/releases/download/3.6.2/Joomla_3.6.2-Stable-Full_Package.tar.gz
-mkdir /usr/share/nginx/html/web
-cd web
-tar -xzvf latest.tar.gztar -xzvf ../Joomla_3.6.2-Stable-Full_Package.tar.gz
-cd ..
-rm -rf Joomla_3.6.2-Stable-Full_Package.tar.gz
-
-elif [ $AppToInstall == "drupal" ];
-then
-# Install drupal
-cd /usr/share/nginx/html/
-wget https://ftp.drupal.org/files/projects/drupal-8.2.1.tar.gz
-tar -xzvf drupal-8.2.1.tar.gz
-mv drupal-8.2.1 web
-rm -rf drupal-8.2.1.tar.gz
-
-else
 # Do nothing
 
 #
@@ -138,26 +105,6 @@ cat > /usr/share/nginx/html/web/index.php << _EOF_
 </html>
 _EOF_
 
-fi
-
-#
-#
-# Install admin tools
-if [ $InstallTools == "yes" ];
-then
-   wget https://raw.githubusercontent.com/juliosene/azure-nginx-php-mariadb-cluster/master/tools/install-tools.sh
-   bash install-tools.sh $ToolsUser $ToolsPass
-fi
-
-
-if [ $InstallTools == "yes" ];
-then
-if [ $OPTION -gt 0 ]; 
-then  
-wget https://raw.githubusercontent.com/juliosene/azure-nginx-php-mariadb-cluster/master/tools/tools.conf
-mv tools.conf /etc/nginx/conf.d/
-fi
-fi
 
 #
 # Services restart
