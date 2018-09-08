@@ -4,7 +4,7 @@ cd ~
 # sudo -i
 sudo apt-get update && sudo apt-get -fy upgrade
 
-sudo locale-gen "en_US.UTF-8"
+# sudo locale-gen "en_US.UTF-8"
 apt-get install -fy lsb-release bc
 REL=`lsb_release -sc`
 DISTRO=`lsb_release -is | tr [:upper:] [:lower:]`
