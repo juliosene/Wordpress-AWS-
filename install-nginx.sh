@@ -42,6 +42,7 @@ apt-get install -fy nginx
 
 # # PHP 7.2
 apt-get install -fy php7.2
+apt-get remove -yf apache2
 apt-get install -fy php7.2-fpm php7.2-mysql php7.2-curl php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-imagick
 # apt-get install -fy php-pear php7.2-fpm php7.2-mysql php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml
 # Memcache client installation
