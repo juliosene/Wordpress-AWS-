@@ -14,10 +14,6 @@ WORKER=`bc -l <<< "4*$NCORES"`
 AppToInstall=${1:-"none"}
 # wordpres, joomla, drupal
 
-InstallTools=${3:-"no"}
-ToolsUser=$4
-ToolsPass=$5
-
 # Install NGinx from oficial repository
 
 wget http://nginx.org/keys/nginx_signing.key
