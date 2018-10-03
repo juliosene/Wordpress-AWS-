@@ -71,9 +71,10 @@ mv nginx.conf /etc/nginx/
 # replace Nginx default.conf
 #
 wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/files/default.conf
+wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/files/ssl.conf
 # sed -i "s,/var/run/php5-fpm.sock,/var/run/php/php7.2-fpm.sock,g" default.conf
 mv default.conf /etc/nginx/conf.d/
-
+mv ssl.conf /etc/nginx/conf.d/ssl-conf.exemple
 
 # Do nothing
 
