@@ -4,6 +4,7 @@ cd ~
 # sudo -i
 apt-get install -fy python-software-properties
 LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y
+sudo locale-gen "en_US.UTF-8"
 
 sudo apt-get update && sudo apt-get -fy upgrade
 
