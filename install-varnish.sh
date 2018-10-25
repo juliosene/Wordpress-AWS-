@@ -24,6 +24,10 @@ sed -i "s,80;,8080;,g" /etc/nginx/conf.d/default.conf
 wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/files/varnish
 mv varnish /etc/default/varnish
 
+wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/files/default.vcl
+mv /etc/varnish/default.vcl /etc/varnish/default-vcl.backup
+mv default.vcl /etc/varnish/default.vcl
+
 sudo systemctl stop varnish.service
 sudo systemctl start varnish.service
 
