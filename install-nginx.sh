@@ -15,7 +15,9 @@ DISTRO=`lsb_release -is | tr [:upper:] [:lower:]`
 NCORES=` cat /proc/cpuinfo | grep cores | wc -l`
 WORKER=`bc -l <<< "4*$NCORES"`
 
-AppToInstall=${1:-"none"}
+InstallVarnish=${1:-"none"}
+
+# AppToInstall=${2:-"none"}
 # wordpres, joomla, drupal
 
 # Install NGinx from oficial repository
@@ -115,3 +117,14 @@ _EOF_
 chown -R nginx.nginx /usr/share/nginx/html/web
 
 service nginx restart
+
+
+if [[ $InstallVarnish = "none" ]]
+then
+    echo "Nginx installation complete!"
+else
+    wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/install-varnish.sh
+    bash ./install-varnish.sh
+    echo "Nginx and Varnish installation complete!"
+fi
+
