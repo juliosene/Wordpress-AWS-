@@ -118,7 +118,8 @@ _EOF_
 # Services restart
 #
 
-chown -R nginx.nginx /usr/share/nginx/html/web
+#chown -R nginx.nginx /usr/share/nginx/html/web
+chown -R www-data.www-data /usr/share/nginx/html/web
 
 service nginx restart
 
