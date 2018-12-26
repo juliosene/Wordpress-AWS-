@@ -37,9 +37,9 @@ if [[ $DISTRO = "debian" ]]
 then
 wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 echo "deb https://packages.sury.org/php/ $REL main" | sudo tee /etc/apt/sources.list.d/php.list
-fi
 
 apt-get install ca-certificates apt-transport-https
+fi
 
 apt-get -y update
 
