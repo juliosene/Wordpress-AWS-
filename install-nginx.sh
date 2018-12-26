@@ -33,6 +33,14 @@ add-apt-repository "deb http://nginx.org/packages/$DISTRO $REL nginx"
 apt-get install -fy python-software-properties
 LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php -y
 
+if [[ $DISTRO = "debian" ]]
+then
+wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
+echo "deb https://packages.sury.org/php/ $REL main" | sudo tee /etc/apt/sources.list.d/php.list
+fi
+
+apt-get install ca-certificates apt-transport-https
+
 apt-get -y update
 
 # Install nfs common to mount shared filesystem
