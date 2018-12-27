@@ -189,7 +189,7 @@ then
     
     if [[ $InstallMariaDB = "yes" ]]
     then  
-    cat > /usr/share/nginx/html/web/wp-content.php << __EOF__
+    cat > /usr/share/nginx/html/web/wp-config.php << __EOF__
     // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
