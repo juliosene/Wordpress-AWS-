@@ -8,6 +8,10 @@ do
     then
        InstallVarnish="yes"
     fi
+    if [[ $var = "mariadb" ]]
+    then
+       InstallMariaDB="yes"
+    fi
     if [[ $var = "wordpress" ]]
     then
        InstallWordpress="yes"
@@ -17,6 +21,8 @@ do
        InstallW3TC="yes"
     fi
 done
+
+MyPassword=`date +%s | sha256sum | base64 | head -c 32`
 
 cd ~
 # sudo -i
@@ -149,7 +155,19 @@ cat > /usr/share/nginx/html/web/index.php << _EOF_
 </html>
 _EOF_
 
-
+# 
+# Install MariaDB
+#
+if [[ $InstallMariaDB = "yes" ]]
+then
+    apt-get install mariadb-server mariadb-client
+    mysql -u root <<EOF
+    CREATE DATABASE wordpress;
+    GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'%'
+    IDENTIFIED BY '$MyPassword';
+    FLUSH PRIVILEGES;
+    EOF
+    fi
 # 
 # Install Wordpress
 #
@@ -164,10 +182,37 @@ then
     echo "Wordpress successfully installed!"
     if [[ $InstallW3TC = "yes" ]]
     then    
-        cd /usr/share/nginx/html/web/wp-content/
+        cd /usr/share/nginx/html/web/wp-content/plugins/
         wget https://downloads.wordpress.org/plugin/w3-total-cache.0.9.7.zip
         unzip w3-total-cache.0.9.7.zip && rm w3-total-cache.0.9.7.zip
     fi
+    
+    if [[ $InstallMariaDB = "yes" ]]
+    then  
+    cat > /usr/share/nginx/html/web/wp-content.php << _EOF_
+    // ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'wpuser');
+
+/** MySQL database password */
+define('DB_PASSWORD', '$MyPassword');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8mb4');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+_EOF_
+
+fi
+    
+    
 else
     echo "CMS is not installed!"
 fi
