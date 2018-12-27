@@ -6,11 +6,11 @@ for var in "$@"
 do
     if [[ $var = "varnish" ]]
     then
-       InstallVarnish = "yes"
+       InstallVarnish="yes"
     fi
     if [[ $var = "wordpress" ]]
     then
-       InstallWordpress = "yes"
+       InstallWordpress="yes"
     fi
 done
 
