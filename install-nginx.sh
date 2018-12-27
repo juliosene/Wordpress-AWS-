@@ -156,7 +156,7 @@ then
     wget https://wordpress.org/latest.zip
     unzip latest.zip
     cd wordpress
-    mv -Rf * /usr/share/nginx/html/web/
+    mv -f * /usr/share/nginx/html/web/
     echo "Wordpress successfully installed!"
 else
     echo "CMS is not installed!"
