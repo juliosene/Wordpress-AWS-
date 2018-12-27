@@ -63,7 +63,19 @@ apt-get remove -yf apache2
 apt-get install -fy php7.2-fpm php7.2-mysql php7.2-curl php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-imagick
 # apt-get install -fy php-pear php7.2-fpm php7.2-mysql php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml
 # Memcache client installation
-apt-get install -fy php7.2-memcached
+apt-get install -fy php7.2-memcached php7.2-redis
+
+# TO INSTALL A FASTER REDIS CACHE PHP INTERFACE
+# apt-get install -fy unzip
+# apt-get install -fy php7.2-dev
+# cd /tmp
+# wget https://github.com/phpredis/phpredis/archive/master.zip -O phpredis.zip
+# unzip -o /tmp/phpredis.zip && mv /tmp/phpredis-* /tmp/phpredis && cd /tmp/phpredis && phpize && ./configure && make && sudo make install
+# sudo touch /etc/php/7.2/mods-available/redis.ini && echo extension=redis.so > /etc/php/7.2/mods-available/redis.ini
+# sudo ln -s /etc/php/7.2/mods-available/redis.ini /etc/php/7.2/apache2/conf.d/redis.ini
+# sudo ln -s /etc/php/7.2/mods-available/redis.ini /etc/php/7.2/fpm/conf.d/redis.ini
+# sudo ln -s /etc/php/7.2/mods-available/redis.ini /etc/php/7.2/cli/conf.d/redis.ini
+
 
 apt-get --purge autoremove -y
 # replace www-data to nginx into /etc/php/7.0/fpm/pool.d/www.conf
