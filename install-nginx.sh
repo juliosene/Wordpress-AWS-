@@ -160,6 +160,7 @@ _EOF_
 #
 if [[ $InstallMariaDB = "yes" ]]
 then
+    apt-get install -fy pwgen
     apt-get install -fy mariadb-server mariadb-client
     mysql -u root <<EOF
 CREATE DATABASE wordpress;
@@ -189,6 +190,15 @@ then
     
     if [[ $InstallMariaDB = "yes" ]]
     then  
+    AUTH_KEY=`pwgen -ys 64 1`
+    SECURE_AUTH_KEY=`pwgen -ys 64 1`
+    LOGGED_IN_KEY=`pwgen -ys 64 1`
+    NONCE_KEY=`pwgen -ys 64 1`
+    AUTH_SALT=`pwgen -ys 64 1`
+    SECURE_AUTH_SALT=`pwgen -ys 64 1`
+    LOGGED_IN_SALT=`pwgen -ys 64 1`
+    NONCE_SALT=`pwgen -ys 64 1`
+    
     cat > /usr/share/nginx/html/web/wp-config.php << __EOF__
     // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
@@ -208,6 +218,49 @@ define('DB_CHARSET', 'utf8mb4');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
+
+ */
+define('AUTH_KEY',         '$AUTH_KEY');
+define('SECURE_AUTH_KEY',  '$SECURE_AUTH_KEY');
+define('LOGGED_IN_KEY',    '$LOGGED_IN_KEY');
+define('NONCE_KEY',        '$NONCE_KEY');
+define('AUTH_SALT',        '$AUTH_SALT');
+define('SECURE_AUTH_SALT', '$SECURE_AUTH_SALT');
+define('LOGGED_IN_SALT',   '$LOGGED_IN_SALT');
+define('NONCE_SALT',       '$NONCE_SALT');
+
+/**#@-*/
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each
+ * a unique prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix  = 'wp_';
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ *
+ * For information on other constants that can be used for debugging,
+ * visit the Codex.
+ *
+ * @link https://codex.wordpress.org/Debugging_in_WordPress
+ */
+define('WP_DEBUG', false);
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+        define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
 __EOF__
 
 fi
