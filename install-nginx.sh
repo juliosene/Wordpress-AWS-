@@ -132,12 +132,13 @@ chown -R www-data.www-data /usr/share/nginx/html/web
 service nginx restart
 
 
-if [[ $InstallVarnish = "none" ]]
+if [[ $InstallVarnish = "varnish" ]]
 then
-    echo "Nginx installation complete!"
-else
     wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/install-varnish.sh
     bash ./install-varnish.sh
     echo "Nginx and Varnish installation complete!"
+
+else
+    echo "Nginx installation complete!"
 fi
 
