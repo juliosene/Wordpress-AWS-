@@ -160,14 +160,14 @@ _EOF_
 #
 if [[ $InstallMariaDB = "yes" ]]
 then
-    apt-get install mariadb-server mariadb-client
+    apt-get install -fy mariadb-server mariadb-client
     mysql -u root <<EOF
-    CREATE DATABASE wordpress;
-    GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'%'
-    IDENTIFIED BY '$MyPassword';
-    FLUSH PRIVILEGES;
-    EOF
-    fi
+CREATE DATABASE wordpress;
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'%'
+IDENTIFIED BY '$MyPassword';
+FLUSH PRIVILEGES;
+EOF
+fi
 # 
 # Install Wordpress
 #
