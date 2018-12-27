@@ -151,7 +151,7 @@ _EOF_
 #
 if [[ $InstallWordpress = "yes" ]]
 then
-    apt-get -fy unzip
+    apt-get install -fy unzip
     cd /tmp
     wget https://wordpress.org/latest.zip
     unzip latest.zip
