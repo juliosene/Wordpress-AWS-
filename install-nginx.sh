@@ -189,7 +189,7 @@ then
     
     if [[ $InstallMariaDB = "yes" ]]
     then  
-    cat > /usr/share/nginx/html/web/wp-content.php << _EOF_
+    cat > /usr/share/nginx/html/web/wp-content.php << __EOF__
     // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
@@ -208,7 +208,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
-_EOF_
+__EOF__
 
 fi
     
@@ -238,4 +238,3 @@ then
 else
     echo "Nginx installation complete!"
 fi
-
