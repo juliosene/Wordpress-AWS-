@@ -146,6 +146,23 @@ cat > /usr/share/nginx/html/web/index.php << _EOF_
 _EOF_
 
 
+# 
+# Install Wordpress
+#
+if [[ $InstallWordpress = "yes" ]]
+then
+    apt-get -fy unzip
+    cd /tmp
+    wget https://wordpress.org/latest.zip
+    unzip latest.zip
+    cd wordpress
+    mv -Rf * /usr/share/nginx/html/web/
+    echo "Wordpress successfully installed!"
+else
+    echo "CMS is not installed!"
+fi
+
+
 #
 # Services restart
 #
