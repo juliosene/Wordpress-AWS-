@@ -156,7 +156,7 @@ chown -R www-data.www-data /usr/share/nginx/html/web
 service nginx restart
 
 
-if [[ $InstallVarnish = "varnish" ]]
+if [[ $InstallVarnish = "yes" ]]
 then
     wget https://raw.githubusercontent.com/juliosene/Wordpress-AWS-/master/install-varnish.sh
     bash ./install-varnish.sh
