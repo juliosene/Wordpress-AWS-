@@ -200,7 +200,7 @@ then
     NONCE_SALT=`pwgen -ys 64 1`
     
     cat > /usr/share/nginx/html/web/wp-config.php << __EOF__
-    // ** MySQL settings - You can get this info from your web host ** //
+<?php // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
 
