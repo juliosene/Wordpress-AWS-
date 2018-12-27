@@ -1,5 +1,19 @@
 #!/bin/bash
-# This script will install Nginx + PHP 7.1
+# This script will install Nginx + PHP 7.2
+
+# Script arguments
+for var in "$@"
+do
+    if [[ $var = "varnish" ]]
+    then
+       InstallVarnish = "yes"
+    fi
+    if [[ $var = "wordpress" ]]
+    then
+       InstallWordpress = "yes"
+    fi
+done
+
 cd ~
 # sudo -i
 sudo apt-get install language-pack-UTF-8
@@ -17,8 +31,6 @@ REL=`lsb_release -sc`
 DISTRO=`lsb_release -is | tr [:upper:] [:lower:]`
 NCORES=` cat /proc/cpuinfo | grep cores | wc -l`
 WORKER=`bc -l <<< "4*$NCORES"`
-
-InstallVarnish=${1:-"none"}
 
 # AppToInstall=${2:-"none"}
 # wordpres, joomla, drupal
