@@ -12,6 +12,10 @@ do
     then
        InstallWordpress="yes"
     fi
+    if [[ $var = "w3tc" ]]
+    then
+       InstallW3TC="yes"
+    fi
 done
 
 cd ~
@@ -158,9 +162,16 @@ then
     cd wordpress
     mv -f * /usr/share/nginx/html/web/
     echo "Wordpress successfully installed!"
+    if [[ $InstallW3TC = "yes" ]]
+    then    
+        cd /usr/share/nginx/html/web/wp-content/
+        wget https://downloads.wordpress.org/plugin/w3-total-cache.0.9.7.zip
+        unzip w3-total-cache.0.9.7.zip && rm w3-total-cache.0.9.7.zip
+    fi
 else
     echo "CMS is not installed!"
 fi
+
 
 
 #
