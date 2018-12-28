@@ -190,14 +190,7 @@ then
     
     if [[ $InstallMariaDB = "yes" ]]
     then  
-    AUTH_KEY=`pwgen -ys 64 1`
-    SECURE_AUTH_KEY=`pwgen -ys 64 1`
-    LOGGED_IN_KEY=`pwgen -ys 64 1`
-    NONCE_KEY=`pwgen -ys 64 1`
-    AUTH_SALT=`pwgen -ys 64 1`
-    SECURE_AUTH_SALT=`pwgen -ys 64 1`
-    LOGGED_IN_SALT=`pwgen -ys 64 1`
-    NONCE_SALT=`pwgen -ys 64 1`
+        AUTH_TXT=`curl https://api.wordpress.org/secret-key/1.1/salt/`
     
     cat > /usr/share/nginx/html/web/wp-config.php << __EOF__
 <?php // ** MySQL settings - You can get this info from your web host ** //
@@ -219,15 +212,7 @@ define('DB_CHARSET', 'utf8mb4');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
- */
-define('AUTH_KEY',         '$AUTH_KEY');
-define('SECURE_AUTH_KEY',  '$SECURE_AUTH_KEY');
-define('LOGGED_IN_KEY',    '$LOGGED_IN_KEY');
-define('NONCE_KEY',        '$NONCE_KEY');
-define('AUTH_SALT',        '$AUTH_SALT');
-define('SECURE_AUTH_SALT', '$SECURE_AUTH_SALT');
-define('LOGGED_IN_SALT',   '$LOGGED_IN_SALT');
-define('NONCE_SALT',       '$NONCE_SALT');
+$AUTH_TXT
 
 /**#@-*/
 
